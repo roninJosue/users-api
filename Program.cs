@@ -1,9 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using users_api.Application.Interfaces;
 using users_api.Application.Mappers;
 using users_api.Application.Ports;
 using users_api.Infrastructure.Adapters;
 using users_api.Infrastructure.Persistence;
+using users_api.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,7 @@ builder.Services.AddControllers().AddJsonOptions(x =>
     x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddScoped<IGetUsersPort, UserRepository>();
 builder.Services.AddScoped<ISaveUserPort, UserRepository>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddTransient<UserMapper>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
